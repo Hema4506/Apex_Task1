@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animal Image Gallery</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f9;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+}
+
+input, button {
+  padding: 8px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #6C63FF;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #574fd6;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.card {
+  margin: 10px;
+  padding: 10px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  width: 350px;
+}
+
+.card img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.caption {
+  font-size: 0.85em;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.btn-small {
+  display: block;
+  width: 100%;
+  margin-top: 3px;
+  font-size: 0.85em;
+}
+
+.view-button {
+  background-color: #FF6584;
+}
+
+.view-button:hover {
+  background-color: #e94a6a;
+}
+
+.remove-button {
+  background-color: #ff3b3b;
+}
+
+.remove-button:hover {
+  background-color: #d92c2c;
+}
+</style>
+</head>
+<body>
+
+<h1>🐾 Image Gallery 🐾</h1>
+
+<input type="text" id="imageUrl" placeholder="Enter Image URL">
+<input type="text" id="caption" placeholder="Enter Caption">
+<button onclick="addImage()">Add Image</button>
+
+<div class="gallery" id="gallery">
+
+  <!-- Predefined Images -->
+  <div class="card">
+    <img src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?cs=srgb&dl=pexels-chevanon-photography-1108099.jpg&fm=jpg" alt="Dog">
+    <div class="caption">Dog</div>
+    <button class="btn-small view-button" onclick="window.open('https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?cs=srgb&dl=pexels-chevanon-photography-1108099.jpg&fm=jpg', '_blank')">View Full Image</button>
+    <button class="btn-small remove-button" onclick="this.parentElement.remove()">Remove Image</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?fit=crop&w=300&q=80" alt="Cat">
+    <div class="caption">Cat</div>
+    <button class="btn-small view-button" onclick="window.open('https://images.unsplash.com/photo-1518791841217-8f162f1e1131?fit=crop&w=300&q=80', '_blank')">View Full Image</button>
+    <button class="btn-small remove-button" onclick="this.parentElement.remove()">Remove Image</button>
+  </div>
+
+  <div class="card">
+    <img src="https://wallpaperaccess.com/full/781682.jpg" alt="Rabbit">
+    <div class="caption">Rabbit</div>
+    <button class="btn-small view-button" onclick="window.open('https://wallpaperaccess.com/full/781682.jpg', '_blank')">View Full Image</button>
+    <button class="btn-small remove-button" onclick="this.parentElement.remove()">Remove Image</button>
+  </div>
+
+</div>
+
+<script>
+function createCard(url, captionText) {
+  const gallery = document.getElementById('gallery');
+
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const img = document.createElement('img');
+  img.src = url;
+  img.alt = captionText || "Gallery Image";
+
+  const caption = document.createElement('div');
+  caption.className = 'caption';
+  caption.textContent = captionText;
+
+  const viewBtn = document.createElement('button');
+  viewBtn.textContent = 'View Full Image';
+  viewBtn.className = 'btn-small view-button';
+  viewBtn.onclick = () => window.open(url, '_blank');
+
+  const removeBtn = document.createElement('button');
+  removeBtn.textContent = 'Remove Image';
+  removeBtn.className = 'btn-small remove-button';
+  removeBtn.onclick = () => card.remove();
+
+  card.appendChild(img);
+  if (captionText) card.appendChild(caption);
+  card.appendChild(viewBtn);
+  card.appendChild(removeBtn);
+  gallery.appendChild(card);
+}
+
+function addImage() {
+  const url = document.getElementById('imageUrl').value.trim();
+  const caption = document.getElementById('caption').value.trim();
+
+  if (!url) return;
+
+  createCard(url, caption);
+
+  document.getElementById('imageUrl').value = '';
+  document.getElementById('caption').value = '';
+}
+</script>
+
+</body>
+</html>
